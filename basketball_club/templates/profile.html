@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
+        }
+
+        .header {
+            background-color: #C41230;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.5); 
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-right a {
+                text-align: left;
+                padding: 10px 0;
+                width: 100%;
+            }
+        }
+
+        .profile-content {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .profile-content h1 {
+            color: #C41230;
+            margin-bottom: 30px;
+        }
+
+        .profile-content p {
+            font-size: 16px;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+
+        .profile-buttons {
+            margin-top: 30px;
+        }
+
+        .profile-buttons a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #C41230;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .profile-buttons a:hover {
+            background-color: white;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .content-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content-section img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Keep your existing header -->
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'meetups' %}">Events</a>
+            <a href="{% url 'members' %}">Members</a>
+            <a href="{% url 'profile' %}" class="active">Profile</a>
+        </div>
+    </div>
+
+    <div class="profile-content">
+        <h1>Welcome, {{ student.studentname }}!</h1>
+        
+        <p>Student ID: {{ student.studentid }}</p>
+        <p>Number on jersey: {{student.numonjersey}}</p>
+        <p>Semester: {{student.semester}}</p>
+        <p>Phone Number: {{ student.phonenumber }}</p>
+        <p>Email: {{student.email}}</p>
+        <p>Password: {{student.password}}</p>
+
+        <div class="profile-buttons">
+            <a href="{% url 'update' studentid=student.studentid %}">Update</a>
+            <a href="{% url 'viewdelete' studentid=student.studentid %}">Delete Account</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <!-- Keep your existing footer -->
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static 'pumaxkfc.png' %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>

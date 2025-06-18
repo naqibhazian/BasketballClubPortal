@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
+        }
+
+        .header {
+            background-color: #C41230;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.5); 
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-right a {
+                text-align: left;
+                padding: 10px 0;
+                width: 100%;
+            }
+        }
+
+        .content-1 {
+            padding-left: 20px;
+            margin: 20px 0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f7eaea;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #C41230;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-group button {
+            padding: 10px 20px;
+            background-color: #C41230;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .form-group button:hover {
+            background-color: #a01028;
+        }
+
+        #create-button {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #C41230;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #create-button:hover {
+            background-color: #f9f9f9;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+
+        #cancel-button{
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #cancel-button:hover {
+            background-color: #f9f9f9;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'meetups' %}" class="active">Events</a>
+            <a href="{% url 'members' %}">Members</a>
+            <a href="#">Profile</a>
+        </div>
+    </div>
+
+    <h2>Meetup form</h2>
+    <form action="{% url 'createmeetup' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="jersey">Tittle</label>
+            <input type="text" name="M_tittle">
+        </div>
+        <div class="form-group">
+            <label for="jersey">Description</label>
+            <input type="text" name="M_description">
+        </div>
+        <div class="form-group">
+            <label for="fullname">Date</label>
+            <input type="date" name="M_date" placeholder="YYYY-MM-DD">
+        </div>
+        <div class="form-group">
+            <label for="fullname">Time</label>
+            <input type="time" name="M_time">
+        </div>
+        <div class="form-group">
+            <label for="semester">Location</label>
+            <input type="text" name="M_location" >
+        </div>
+
+        <div class="form-group">
+            <button id="create-button" type="submit">Create</button>
+            <a id="cancel-button" href="{% url 'meetups' %}">Cancel</a> 
+        </div>   
+    </form>
+
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static "pumaxkfc.png" %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>

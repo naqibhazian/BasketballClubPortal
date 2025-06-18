@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #C41230;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+            border-radius: 5px;
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 5px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-right a {
+                text-align: left;
+                padding: 10px 0;
+                width: 100%;
+            }
+        }
+
+        #title{
+            padding-left: 20px;
+            padding-top: 20px;
+        }
+    
+
+        /* Tables */
+        .meetup-container {
+            margin: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .meetup-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .meetup-table th, .meetup-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .meetup-table th {
+            background-color: #C41230;
+            color: white;
+        }
+
+        .meetup-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .meetup-table tr:hover {
+            background-color: #ddd;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+        }
+
+        /* Buttons */
+        #create-meetup {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #C41230;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #create-meetup:hover {
+            background-color: white;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'meetups' %}" class="active">Events</a>
+            <a href="{% url 'members' %}">Members</a>
+            <a href="{% url 'profile' %}">Profile</a>
+        </div>
+    </div>
+
+    <h2 id="title">Beranang Buckets Events</h2>
+
+    <!-- Meetups Section -->
+    <div class="meetup-container">
+        <h2>Meetups</h2>
+        <table class="meetup-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for meetup in meetups %}
+                <tr>
+                    <td>{{ meetup.M_title }}</td>
+                    <td>{{ meetup.M_description }}</td>
+                    <td>{{ meetup.M_date }}</td>
+                    <td>{{ meetup.M_time }}</td>
+                    <td>{{ meetup.M_location }}</td>
+                    <td><a href="{% url 'updatemeetup' meetup.id %}">Update</a></td>
+                    <td><a href="{% url 'deletemeetup' meetupid=meetup.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="meetup-container">
+        <a id="create-meetup" href="{% url 'createmeetup' %}">Create Meetup</a>
+    </div>
+
+    <!-- Tournaments Section -->
+    <div class="meetup-container">
+        <h2>Tournaments</h2>
+        <table class="meetup-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tour in tournaments %}
+                <tr>
+                    <td>{{ tour.tittle }}</td>
+                    <td>{{ tour.date }}</td>
+                    <td>{{ tour.time }}</td>
+                    <td>{{ tour.location }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static "pumaxkfc.png" %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>

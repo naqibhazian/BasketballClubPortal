@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
+        }
+
+        .header {
+            background-color: #C41230;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.5); 
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+        }
+
+        .header-right .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.header-right .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.header-right .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.header-right .dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.header-right .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.header-right a {
+    position: relative; 
+}
+
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-right a {
+                text-align: left;
+                padding: 10px 0;
+                width: 100%;
+            }
+        }
+
+        h2 {
+            padding-left: 20px;
+        }
+
+        ul {
+            margin-left: 20px;
+        }
+
+        li{
+            line-height: 1.5;
+        }
+
+        p{
+            line-height: 1.5;
+        }
+
+
+        .content-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-section .text-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.content-section img {
+    max-width: 500px;
+    height: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.left-image {
+    order: -1;
+}
+
+.right-image {
+    order: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .content-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .content-section img {
+        max-width: 100%;
+        height: auto;
+        order: 0 !important;
+    }
+}
+
+        /* Alternating layout */
+        .content-right {
+            flex-direction: row-reverse;
+        }
+
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .content-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content-section img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}" class="active">Home</a>
+            <a href="{% url 'meetups' %}">Events</a>
+            <a href="{% url 'members' %}">Members</a>
+            <a href="{% url 'profile' %}">Profile</a>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <div class="text-content">
+            <h2>Welcome to Beranang Buckets - Where Passion for Basketball Meets Community!</h2>
+            <p>Join us to learn, compete, and connect with other basketball lovers in Beranang.</p>
+        </div>
+        {% load static %} <img src="{% static "team.jpg" %}" alt="Sponsor Logo" class="right-image">
+    </div>
+    
+    <div class="content-section">
+        {% load static %} <img src="{% static "weed.jpg" %}" alt="Sponsor Logo" class="left-image">
+        <div class="text-content">
+            <h2>About us</h2>
+            <p>We are a community-driven basketball club at KPM Beranang dedicated to fostering talent, teamwork, and a love for the game. Whether you're a seasoned player or just getting started, there's a place for you on our court!</p>
+        </div>
+    </div>
+    
+    <div class="content-section">
+        <div class="text-content">
+            <h2>Why join us</h2>
+            <ul>
+                <li>Inclusive Community: Open to all skill levels.</li>
+                <li>Regular Training: Weekly sessions to improve your game.</li>
+                <li>Competitive Tournaments: Opportunities to compete and improve.</li>
+                <li>Social Events: Fun meetups outside the court to build friendships.</li>
+            </ul>
+        </div>
+        {% load static %} <img src="{% static "rim.jpg" %}" alt="Sponsor Logo" class="right-image">
+    </div>
+    
+    <div class="content-section">
+        {% load static %} <img src="{% static "hz.jpg" %}" alt="Sponsor Logo" class="left-image">
+        <div class="text-content">
+            <h2>Testimonial by the President of MPP KPMB</h2>
+            <p>
+                I‘ve been a part of the club for quite a while and it has been beyond great. Let me tell you, Beranang Buckets got the best facilities, with indoor courts, outdoor courts, DR. Dish machine and The Gun machine. Everything and everyone here are pushing eachother to strive further that you can feel that you’re improving your game each time you step on the floor. There’s even a gym area for strength and conditioning. You can feel that they really care about you here. They got classes for fundamentals for beginner upto advanced skills training, focusing on areas like shooting, defense, agility, and teamwork. The club is also very active in tournaments. That makes it so much more exciting, it feeds my competitive edge. There are always opportunities to join different leagues and competitions if you’re with them. All in all, Beranang Buckets is more than a club. It’s a family. A basketball family. It’s a community where everyone is committed to support one another’s progress. Whether you want to become a competitive player or simply enjoy the sport casually, they got you covered. I’m really excited to see how much more can I continue to grow here. Both as a player and as part of the team. You can’t find other places like this. Come down and ball with us.
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static "pumaxkfc.png" %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>

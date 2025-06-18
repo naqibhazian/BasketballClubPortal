@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+        }
+
+        /* Header */
+        .header {
+            background-color: #C41230;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 28px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.3);
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+        }
+
+        /* Responsive Header */
+        @media screen and (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-right {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .header-right a {
+                text-align: left;
+                padding: 10px 0;
+                width: 100%;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #C41230;
+            margin-left: 20px;
+            padding-left: 10px;
+            margin-top: 40px;
+        }
+
+        .search-container {
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            background-color: #C41230;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: white;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+
+        .meetup-table {
+            width: 90%;
+            margin: 0 auto 40px;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .meetup-table th, .meetup-table td {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .meetup-table th {
+            background-color: #C41230;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .meetup-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .meetup-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        #create-meetup {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #C41230;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        #create-meetup:hover {
+            background-color: #f9f9f9;
+            color: #C41230;
+            border: 1px solid #C41230;
+        }
+
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'meetups' %}">Meetups</a>
+            <a href="{% url 'members' %}" class="active">Members</a>
+            <a href="{% url 'profile' %}">Profile</a>
+        </div>
+    </div>
+
+    <h2>Beranang Buckets Members</h2>
+
+    <h2>Students</h2>
+    <div class="meetup-container">
+        <table class="meetup-table">
+            <thead>
+                <tr>
+                    <th>Jersey No</th>
+                    <th>Full Name</th>
+                    <th>Semester</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.nomonjersey }}</td>
+                    <td>{{ student.studentname }}</td>
+                    <td>{{ student.semester }}</td>
+                    <td>{{ student.phonenumber }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Lecturers</h2>
+    <div class="meetup-container">
+        <table class="meetup-table">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Phone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lecturer in lecturers %}
+                <tr>
+                    <td>{{ lecturer.lecturername }}</td>
+                    <td>{{ lecturer.lecturernumber }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static "pumaxkfc.png" %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranang Buckets</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
+        }
+
+        .header {
+            background-color: #C41230;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header .logo {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .header-right a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-right a:hover {
+            background-color: rgba(128, 128, 128, 0.5); 
+        }
+
+        .header-right a.active {
+            background-color: rgba(128, 128, 128, 0.5);
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f9e3e3;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #C41230;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-buttons {
+            display: inline;
+            
+        }
+
+        .form-buttons input[type="submit"] {
+            background-color: #C41230;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-buttons input[type="submit"]:hover {
+            background-color: #a61026;
+        }
+
+        .form-buttons a {
+            background-color: #888888;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .form-buttons a:hover {
+            background-color: #666666;
+        }
+
+        .footer {
+            background-color: #C41230;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-center {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .footer img {
+            max-width: 150px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .footer {
+                flex-direction: column;
+            }
+
+            .footer-left, .footer-center {
+                width: 100%;
+                text-align: center;
+                margin: 10px 0;
+            }
+
+            .content-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .content-section img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="{% url 'index' %}" class="logo">Beranang Buckets</a>
+        <div class="header-right">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'meetups' %}">Events</a>
+            <a href="{% url 'members' %}">Members</a>
+            <a href="{% url 'profile' %}" class="active">Profile</a>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2>Update form</h2>
+        <form action="{% url 'updatedata' studentid=updateid.studentid %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="studentid">Student ID</label>
+                <input type="text" id="studentid" name="studentid" value="{{updateid.studentid}}" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="jersey">Number on jersey</label>
+                <input type="text" id="jersey" name="nomonjersey" value="{{ updateid.nomonjersey }}">
+            </div>
+
+            <div class="form-group">
+                <label for="studentname">Student Name</label>
+                <input type="text" id="studentname" name="studentname" value="{{ updateid.studentname }}">
+            </div>
+
+            <div class="form-group">
+                <label for="semester">Semester</label>
+                <input type="text" id="semester" name="semester" value="{{ updateid.semester }}">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phonenumber" value="{{ updateid.phonenumber }}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" value="{{ updateid.email }}">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" value="{{ updateid.password }}">
+            </div>
+
+            <div class="form-buttons">
+                <input type="submit" value="Update">
+                <a href="{% url 'profile' studentid=updateid.studentid %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <div class="footer-left">
+            <p>&copy; 2024 KPM Beranang Athletics. All rights reserved.</p>
+        </div>
+        <div class="footer-center">
+            <p>Sponsored by:</p>
+            {% load static %} <img src="{% static "pumaxkfc.png" %}" alt="Sponsor Logo">
+        </div>
+    </div>
+</body>
+</html>
